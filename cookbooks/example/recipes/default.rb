@@ -1,30 +1,23 @@
 # This is a Chef recipe file. It can be used to specify resources which will
 # apply configuration to a server.
 
-# apt_repository 'variety' do
-#   uri          'ppa:peterlevi/ppa'
-#   distribution node['lsb']['codename']
-# end
+# include_recipe 'atom'
+# ppa 'webupd8team/atom'
+# atom
 
-# apt_repository 'atom' do
-#   uri          'ppa:webupd8team/atom'
-#   distribution node['lsb']['codename']
-# end
+include_recipe 'poise'
+
+ppa 'peterlevi/ppa'
 
 # apt_update 'all platforms' do
 #   action :update
 # end
 
-# # sets up ppa launchpad repo
-# include_recipe "atom"
-#
-# # install atom
-# package "atom" do
-#   action :install
+# docker_installation_package 'default' do
+#   # version node['docker']['version']
+#   action :create
+#   package_options %q|--force-yes -o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-all'|
 # end
-#
-# # install plugins
-# atom_apm "minimap"
 
 cli_packages = [
   'wget',
@@ -62,9 +55,9 @@ end
 
 system_ui_packages = [
   'indicator-multiload',
-	'redshift',
-  # 'variety',
-  # 'variety-slideshow',
+  'redshift',
+  'variety',
+  'variety-slideshow',
   'unity-tweak-tool',
   'compizconfig-settings-manager',
   'compiz-plugins-extra',
@@ -100,6 +93,10 @@ media_app_packages = [
 apt_package media_app_packages do
   action :install
 end
+
+# packagecloud_repo "github/git-lfs" do
+#   type "deb" # or "rpm" or "gem"
+# end
 
 # ros 'indigo' do
 #   config 'ros-desktop-full'
