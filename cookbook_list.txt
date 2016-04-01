@@ -1,0 +1,22 @@
+knife configure initial
+
+``` knife.rb
+log_level                :info
+log_location             STDOUT
+node_name                'ruffsl'
+client_key               '/home/ruffsl/.chef/ruffsl.pem'
+validation_client_name   'chef-validator'
+validation_key           '/etc/chef-server/chef-validator.pem'
+chef_server_url          'https://eve:443'
+syntax_check_cache_path  '/home/ruffsl/.chef/syntax_check_cache'
+cookbook_path [
+  '/home/ruffsl/.chef/cookbooks',
+  '/home/ruffsl/git/ruffsl/chef-repo/cookbooks',
+]
+```
+
+knife cookbook site install apt-repo
+knife cookbook site install atom
+knife cookbook site install docker
+knife cookbook site install ros
+knife cookbook site install packagecloud
